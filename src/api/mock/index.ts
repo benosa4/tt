@@ -101,6 +101,8 @@ class MockApi {
         return this.mockFetchLangDifference(args) as T;
       case 'oldFetchLangPack':
         return this.mockOldFetchLangPack(args) as T;
+      case 'fetchLangPack':
+        return this.mockFetchLangPack(args) as T;
       case 'fetchLangStrings':
         return this.mockFetchLangStrings(args) as T;
       case 'fetchNearestCountry':
@@ -142,6 +144,7 @@ class MockApi {
           'CountryNone': 'Unknown',
           'LoginNext': 'Next',
           'AuthPhoneNumber': 'Phone Number',
+          'AuthContinueOnThisLanguage': 'Continue in this language',
         },
         version: 1,
       },
@@ -160,6 +163,7 @@ class MockApi {
           'CountryNone': 'Unknown',
           'LoginNext': 'Next',
           'AuthPhoneNumber': 'Phone Number',
+          'AuthContinueOnThisLanguage': 'Continue in this language',
         },
         version: 1,
       },
@@ -178,8 +182,22 @@ class MockApi {
           'CountryNone': 'Unknown',
           'LoginNext': 'Next',
           'AuthPhoneNumber': 'Phone Number',
+          'AuthContinueOnThisLanguage': 'Continue in this language',
         },
         version: 1,
+      },
+    });
+  }
+
+  private mockFetchLangPack(args: any[]) {
+    return Promise.resolve({
+      version: 1,
+      strings: {
+        'AuthTitle': 'Sign in to Telegram',
+        'CountryNone': 'Unknown',
+        'LoginNext': 'Next',
+        'AuthPhoneNumber': 'Phone Number',
+        'AuthContinueOnThisLanguage': 'Continue in this language',
       },
     });
   }
@@ -209,43 +227,38 @@ class MockApi {
   }
 
   private mockFetchNearestCountry(args: any[]) {
-    return Promise.resolve({
-      country: {
-        code: 'US',
-        name: 'United States',
-        defaultName: 'United States',
-        flag: '🇺🇸',
-        phoneCode: '+1',
-      },
-    });
+    return Promise.resolve('US');
   }
 
   private mockFetchCountryList(args: any[]) {
-    return Promise.resolve({
-      countries: [
-        {
-          code: 'US',
-          name: 'United States',
-          defaultName: 'United States',
-          flag: '🇺🇸',
-          phoneCode: '+1',
-        },
-        {
-          code: 'RU',
-          name: 'Russia',
-          defaultName: 'Россия',
-          flag: '🇷🇺',
-          phoneCode: '+7',
-        },
-        {
-          code: 'GB',
-          name: 'United Kingdom',
-          defaultName: 'United Kingdom',
-          flag: '🇬🇧',
-          phoneCode: '+44',
-        },
-      ],
-    });
+    const phoneCodes = [
+      {
+        iso2: 'US',
+        name: 'United States',
+        defaultName: 'United States',
+        countryCode: '1',
+      },
+      {
+        iso2: 'RU',
+        name: 'Russia',
+        defaultName: 'Россия',
+        countryCode: '7',
+      },
+      {
+        iso2: 'GB',
+        name: 'United Kingdom',
+        defaultName: 'United Kingdom',
+        countryCode: '44',
+      },
+    ];
+
+    const general = phoneCodes.map(({ iso2, name, defaultName }) => ({
+      iso2,
+      name,
+      defaultName,
+    }));
+
+    return Promise.resolve({ phoneCodes, general });
   }
 
   private mockGenericResponse(method: string, args: any[]) {
