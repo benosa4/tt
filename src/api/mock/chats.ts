@@ -42,13 +42,21 @@ export async function mockFetchChats(limit: number = 20, offsetDate?: number, of
 }
 
 export async function mockFetchChat(chatId: string) {
-  await new Promise(resolve => setTimeout(resolve, 300));
-  
-  const chat = mockChats.find(c => c.id === chatId);
+  await new Promise((resolve) => setTimeout(resolve, 300));
+
+  let chat = mockChats.find((c) => c.id === chatId);
   if (!chat) {
-    throw new Error('Chat not found');
+    chat = {
+      id: chatId,
+      type: 'chats',
+      title: `Mock Chat ${chatId}`,
+      unreadCount: 0,
+      isPinned: false,
+      isArchived: false,
+    };
+    mockChats.push(chat);
   }
-  
+
   return {
     chat,
     users: [],

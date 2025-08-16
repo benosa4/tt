@@ -29,6 +29,8 @@ npm run dev
 The development mock now supports `fetchAvailableReactions` and `fetchAvailableEffects`.
 These endpoints return placeholder data so reactions and effects work without a backend.
 
+`fetchChat` automatically generates a placeholder when a requested chat ID is missing, preventing runtime `Chat not found` errors during development.
+
 ### Invoking API from console
 
 Start your dev server and locate GramJS worker in console context.
