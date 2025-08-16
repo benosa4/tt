@@ -372,7 +372,7 @@ export function getPeerColorKey(peer: ApiPeer | undefined) {
 export function getPeerColorCount(peer: ApiPeer) {
   const key = getPeerColorKey(peer);
   const global = getGlobal();
-  return global.peerColors?.general[key].colors?.length || 1;
+  return global.peerColors?.general?.[key]?.colors?.length || 1;
 }
 
 export function getIsSavedDialog(chatId: string, threadId: ThreadId | undefined, currentUserId: string | undefined) {
