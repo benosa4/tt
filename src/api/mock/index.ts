@@ -101,6 +101,8 @@ class MockApi {
         return this.mockFetchLangDifference(args) as T;
       case 'oldFetchLangPack':
         return this.mockOldFetchLangPack(args) as T;
+      case 'fetchLangStrings':
+        return this.mockFetchLangStrings(args) as T;
       case 'fetchNearestCountry':
         return this.mockFetchNearestCountry(args) as T;
       case 'fetchCountryList':
@@ -180,6 +182,30 @@ class MockApi {
         version: 1,
       },
     });
+  }
+
+  private mockFetchLangStrings(args: any[]) {
+    const params = args[0] || {};
+    const { keys } = params;
+
+    const allStrings: Record<string, string> = {
+      AuthTitle: 'Sign in to Telegram',
+      CountryNone: 'Unknown',
+      LoginNext: 'Next',
+      AuthPhoneNumber: 'Phone Number',
+      AuthContinueOnThisLanguage: 'Continue in this language',
+    };
+
+    const strings: Record<string, string> = {};
+    if (Array.isArray(keys)) {
+      keys.forEach((key: string) => {
+        if (allStrings[key]) {
+          strings[key] = allStrings[key];
+        }
+      });
+    }
+
+    return Promise.resolve({ strings });
   }
 
   private mockFetchNearestCountry(args: any[]) {
