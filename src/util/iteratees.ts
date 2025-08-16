@@ -6,8 +6,11 @@ type OrderDirection =
 
 type OrderCallback<T> = (member: T) => unknown;
 
-export function buildCollectionByKey<T extends AnyLiteral>(collection: T[], key: keyof T) {
-  return collection.reduce((byKey: CollectionByKey<T>, member: T) => {
+export function buildCollectionByKey<T extends AnyLiteral>(
+  collection: T[] | undefined,
+  key: keyof T,
+) {
+  return (collection ?? []).reduce((byKey: CollectionByKey<T>, member: T) => {
     byKey[member[key]] = member;
 
     return byKey;
@@ -15,10 +18,10 @@ export function buildCollectionByKey<T extends AnyLiteral>(collection: T[], key:
 }
 
 export function buildCollectionByCallback<T extends AnyLiteral, K extends number | string, R>(
-  collection: T[],
+  collection: T[] | undefined,
   callback: (member: T) => [K, R],
 ) {
-  return collection.reduce((byKey: Record<K, R>, member: T) => {
+  return (collection ?? []).reduce((byKey: Record<K, R>, member: T) => {
     const [key, value] = callback(member);
     byKey[key] = value;
 
