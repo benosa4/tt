@@ -92,7 +92,10 @@ const LeftSideMenuItems = ({
 
   const archivedUnreadChatsCount = useFolderManagerForUnreadCounters()[ARCHIVED_FOLDER_ID]?.chatsCount || 0;
 
-  const bots = useMemo(() => Object.values(attachBots).filter((bot) => bot.isForSideMenu), [attachBots]);
+  const bots = useMemo(
+    () => Object.values(attachBots || {}).filter((bot) => bot.isForSideMenu),
+    [attachBots],
+  );
 
   const handleSelectMyProfile = useLastCallback(() => {
     openChatWithInfo({ id: currentUserId, shouldReplaceHistory: true, profileTab: 'stories' });

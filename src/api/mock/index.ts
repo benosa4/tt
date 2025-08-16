@@ -156,6 +156,10 @@ class MockApi {
         return [] as T;
       case 'fetchAnimatedEmojiEffects':
         return [] as T;
+      case 'fetchAvailableReactions':
+        return this.mockFetchAvailableReactions() as T;
+      case 'fetchAvailableEffects':
+        return this.mockFetchAvailableEffects() as T;
       case 'fetchFeaturedEmojiStickers':
         return this.mockFetchFeaturedEmojiStickers() as T;
       case 'updateIsOnline':
@@ -383,6 +387,34 @@ class MockApi {
 
   private mockFetchCollectibleEmojiStatuses() {
     return Promise.resolve({ hash: '0', statuses: [] });
+  }
+
+  private mockFetchAvailableReactions() {
+    return Promise.resolve([
+      {
+        reaction: { type: 'emoji', emoticon: '👍' },
+        title: 'Thumbs Up',
+      },
+      {
+        reaction: { type: 'emoji', emoticon: '❤️' },
+        title: 'Heart',
+      },
+    ]);
+  }
+
+  private mockFetchAvailableEffects() {
+    return Promise.resolve({
+      effects: [
+        {
+          id: '1',
+          emoticon: '🔥',
+          effectAnimationId: 'anim1',
+          effectStickerId: 'sticker1',
+        },
+      ],
+      emojis: [],
+      stickers: [],
+    });
   }
 
   private mockFetchFeaturedEmojiStickers() {

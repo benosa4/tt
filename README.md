@@ -24,6 +24,11 @@ Obtain API ID and API hash on [my.telegram.org](https://my.telegram.org) and pop
 npm run dev
 ```
 
+### Mock API
+
+The development mock now supports `fetchAvailableReactions` and `fetchAvailableEffects`.
+These endpoints return placeholder data so reactions and effects work without a backend.
+
 ### Invoking API from console
 
 Start your dev server and locate GramJS worker in console context.
