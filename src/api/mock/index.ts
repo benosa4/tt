@@ -3,6 +3,7 @@ import type { OnApiUpdate } from '../types/updates';
 import * as mockAuth from './auth';
 import * as mockChats from './chats';
 import * as mockMessages from './messages';
+import { DEFAULT_LIMITS, STARS_CURRENCY_CODE, TON_CURRENCY_CODE } from '../../config';
 
 // Re-export all types for compatibility
 export * from '../types';
@@ -123,6 +124,42 @@ class MockApi {
         return {} as T;
       case 'fetchRecommendedChatFolders':
         return {} as T;
+      case 'fetchConfig':
+        return this.mockFetchConfig() as T;
+      case 'fetchAppConfig':
+        return this.mockFetchAppConfig() as T;
+      case 'fetchSavedChats':
+        return mockChats.mockFetchChats(args[0]?.limit, args[0]?.offsetDate, args[0]?.offsetId) as T;
+      case 'fetchAllStories':
+        return this.mockFetchAllStories() as T;
+      case 'fetchContentSettings':
+        return this.mockFetchContentSettings() as T;
+      case 'fetchPeerColors':
+        return this.mockFetchPeerColors() as T;
+      case 'fetchStickerSets':
+        return this.mockFetchStickerSets() as T;
+      case 'fetchCustomEmojiSets':
+        return this.mockFetchCustomEmojiSets() as T;
+      case 'fetchContactList':
+        return this.mockFetchContactList() as T;
+      case 'fetchCurrentUser':
+        return this.mockFetchCurrentUser() as T;
+      case 'fetchAuthorizations':
+        return this.mockFetchAuthorizations() as T;
+      case 'fetchStarsStatus':
+        return this.mockFetchStarsStatus(args[0]) as T;
+      case 'fetchStarsTopupOptions':
+        return [] as T;
+      case 'fetchCollectibleEmojiStatuses':
+        return this.mockFetchCollectibleEmojiStatuses() as T;
+      case 'fetchAnimatedEmojis':
+        return [] as T;
+      case 'fetchAnimatedEmojiEffects':
+        return [] as T;
+      case 'fetchFeaturedEmojiStickers':
+        return this.mockFetchFeaturedEmojiStickers() as T;
+      case 'updateIsOnline':
+        return { success: true } as T;
 
       default:
         return this.mockGenericResponse(method, args) as T;
@@ -278,6 +315,78 @@ class MockApi {
     }));
 
     return Promise.resolve({ phoneCodes, general });
+  }
+
+  private mockFetchConfig() {
+    return Promise.resolve({
+      expiresAt: Math.floor(Date.now() / 1000) + 3600,
+      limits: DEFAULT_LIMITS,
+    });
+  }
+
+  private mockFetchAppConfig() {
+    return Promise.resolve({
+      hash: '0',
+      limits: DEFAULT_LIMITS,
+    });
+  }
+
+  private mockFetchAllStories() {
+    return Promise.resolve({ state: '0', peerStories: [], stealthMode: {}, hasMore: false });
+  }
+
+  private mockFetchContentSettings() {
+    return Promise.resolve({ isSensitiveEnabled: false });
+  }
+
+  private mockFetchPeerColors() {
+    return Promise.resolve({ colors: {}, hash: '0' });
+  }
+
+  private mockFetchStickerSets() {
+    return Promise.resolve({ hash: '0', sets: [] });
+  }
+
+  private mockFetchCustomEmojiSets() {
+    return Promise.resolve({ hash: '0', sets: [] });
+  }
+
+  private mockFetchContactList() {
+    return Promise.resolve({ users: [], userStatusesById: {} });
+  }
+
+  private mockFetchCurrentUser() {
+    return Promise.resolve({
+      user: {
+        id: 'currentUser',
+        firstName: 'Mock',
+        lastName: 'User',
+        username: 'mockuser',
+        phoneNumber: mockAuth.getMockPhoneNumber(),
+        isSelf: true,
+      },
+      userFullInfo: {},
+    });
+  }
+
+  private mockFetchAuthorizations() {
+    return Promise.resolve({ authorizations: {}, ttlDays: 30 });
+  }
+
+  private mockFetchStarsStatus(args: any[]) {
+    const isTon = args && args[0] && args[0].isTon;
+    return Promise.resolve({
+      balance: { amount: 0, currency: isTon ? TON_CURRENCY_CODE : STARS_CURRENCY_CODE },
+      history: [],
+    });
+  }
+
+  private mockFetchCollectibleEmojiStatuses() {
+    return Promise.resolve({ hash: '0', statuses: [] });
+  }
+
+  private mockFetchFeaturedEmojiStickers() {
+    return Promise.resolve({ sets: [] });
   }
 
   private mockGenericResponse(method: string, args: any[]) {
