@@ -5,6 +5,7 @@ import type { LangPackStringValue } from '../../api/types';
 import type { LangKey } from '../../types/language';
 
 export default {
+  "AuthTitle": "Telegram",
   "WrongNumber": "Wrong number?",
   "SentAppCode": "We've sent the code to the **Telegram** app on your other device.",
   "LoginJustSentSms": "We've sent you a code via SMS. Please enter it above.",

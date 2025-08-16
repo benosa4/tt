@@ -4,7 +4,9 @@ node_modules
 .env
 src/lib/gramjs/build/
 build-contest/
-tests/
+# Keep test helpers for Jest
+tests/init.js
+tests/staticFileMock.js
 .idea
 *.iml
 dev/perf/screenshot*
