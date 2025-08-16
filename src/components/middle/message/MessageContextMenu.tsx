@@ -238,7 +238,8 @@ const MessageContextMenu: FC<OwnProps> = ({
   const scrollableRef = useRef<HTMLDivElement>();
   const oldLang = useOldLang();
   const lang = useLang();
-  const noReactions = !isPrivate && !enabledReactions;
+  const noReactions = !isPrivate && enabledReactions?.type === 'some'
+    && enabledReactions.allowed.length === 0;
   const areReactionsPossible = message.areReactionsPossible;
   const withReactions = (canShowReactionList && !noReactions) || areReactionsPossible;
   const isEdited = ('isEdited' in message) && message.isEdited;
