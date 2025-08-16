@@ -143,14 +143,15 @@ const AuthPhoneNumber: FC<StateProps> = ({
     setPhoneNumber(formatPhoneNumber(newFullNumber, selectedCountry));
   });
 
-  const handleLangChange = useLastCallback(() => {
+  const handleLangChange = useLastCallback(async () => {
     markIsLoading();
 
-    void oldSetLanguage(suggestedLanguage, () => {
-      unmarkIsLoading();
-
+    try {
+      await oldSetLanguage(suggestedLanguage);
       setSharedSettingOption({ language: suggestedLanguage });
-    });
+    } finally {
+      unmarkIsLoading();
+    }
   });
 
   useEffect(() => {
