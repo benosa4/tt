@@ -109,7 +109,7 @@ const ReactionSelector: FC<OwnProps> = ({
       if ((!isCustomReaction && !availableReaction) || availableReaction?.isInactive) return undefined;
 
       if (!isPrivate && !shouldUseCurrentReactions
-        && (!enabledReactions || !canSendReaction(reaction, enabledReactions))) {
+        && enabledReactions && !canSendReaction(reaction, enabledReactions)) {
         return undefined;
       }
 
