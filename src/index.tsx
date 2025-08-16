@@ -29,7 +29,7 @@ import './assets/fonts/roboto.css';
 import './styles/index.scss';
 
 // Import mock API test function for debugging
-import { testMockApi } from './api/mock/test';
+import { testMockApi } from './api/mock/testMockApi';
 
 if (STRICTERDOM_ENABLED) {
   enableStrict();
