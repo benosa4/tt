@@ -37,9 +37,14 @@ class MockApi {
         '@type': 'updateConnectionState',
         connectionState: 'connectionStateReady',
       });
-      
+
       this.updateCallback?.({
         '@type': 'updateApiReady',
+      });
+
+      this.updateCallback?.({
+        '@type': 'updateAuthorizationState',
+        authorizationState: mockAuth.getCurrentAuthState(),
       });
     }, 1000);
   }
