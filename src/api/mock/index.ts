@@ -145,6 +145,7 @@ class MockApi {
           'LoginNext': 'Next',
           'AuthPhoneNumber': 'Phone Number',
           'AuthContinueOnThisLanguage': 'Continue in this language',
+          'LoginSelectCountryTitle': 'Country',
         },
         version: 1,
       },
@@ -164,6 +165,7 @@ class MockApi {
           'LoginNext': 'Next',
           'AuthPhoneNumber': 'Phone Number',
           'AuthContinueOnThisLanguage': 'Continue in this language',
+          'LoginSelectCountryTitle': 'Country',
         },
         version: 1,
       },
@@ -183,6 +185,7 @@ class MockApi {
           'LoginNext': 'Next',
           'AuthPhoneNumber': 'Phone Number',
           'AuthContinueOnThisLanguage': 'Continue in this language',
+          'LoginSelectCountryTitle': 'Country',
         },
         version: 1,
       },
@@ -198,6 +201,7 @@ class MockApi {
         'LoginNext': 'Next',
         'AuthPhoneNumber': 'Phone Number',
         'AuthContinueOnThisLanguage': 'Continue in this language',
+        'LoginSelectCountryTitle': 'Country',
       },
     });
   }
@@ -212,6 +216,7 @@ class MockApi {
       LoginNext: 'Next',
       AuthPhoneNumber: 'Phone Number',
       AuthContinueOnThisLanguage: 'Continue in this language',
+      LoginSelectCountryTitle: 'Country',
     };
 
     const strings: Record<string, string> = {};

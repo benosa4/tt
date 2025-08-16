@@ -344,13 +344,13 @@ export function getTranslationFn(): LangFn {
 }
 
 function getString(langKey: LangKey, count: number) {
-  let langPackStringValue = langPack?.strings[langKey];
+  let langPackStringValue = langPack?.strings?.[langKey];
 
   if (!langPackStringValue && !fallbackLangPack) {
     loadFallbackPack();
   }
 
-  langPackStringValue ||= fallbackLangPack?.strings[langKey];
+  langPackStringValue ||= fallbackLangPack?.strings?.[langKey];
   langPackStringValue ||= initialStrings[langKey];
 
   if (!langPackStringValue || isDeletedLangString(langPackStringValue)) return undefined;
