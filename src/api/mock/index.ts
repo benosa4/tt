@@ -85,12 +85,15 @@ class MockApi {
       case 'searchMessages':
         return mockMessages.mockSearchMessages(args[0], args[1]) as T;
       
+      case 'provideAuthPhoneNumber':
       case 'signIn':
         return mockAuth.mockSignIn(args[0], this.updateCallback!) as T;
+      case 'provideAuthCode':
       case 'submitCode':
         return mockAuth.mockSubmitCode(args[0], this.updateCallback!) as T;
       case 'signUp':
         return mockAuth.mockSignUp(args[0], args[1], this.updateCallback!) as T;
+      case 'provideAuthPassword':
       case 'signInWithPassword':
         return mockAuth.mockSignInWithPassword(args[0], this.updateCallback!) as T;
       
