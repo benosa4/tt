@@ -117,7 +117,13 @@ class MockApi {
         return this.mockFetchNearestCountry(args) as T;
       case 'fetchCountryList':
         return this.mockFetchCountryList(args) as T;
-      
+      case 'fetchCustomEmoji':
+        return [] as T;
+      case 'fetchChatFolders':
+        return {} as T;
+      case 'fetchRecommendedChatFolders':
+        return {} as T;
+
       default:
         return this.mockGenericResponse(method, args) as T;
     }

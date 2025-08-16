@@ -56,14 +56,17 @@ export async function mockSubmitCode(code: string, onUpdate: OnApiUpdate): Promi
 
     onUpdate({
       '@type': 'updateCurrentUser',
-      user: {
+      currentUser: {
         id: 'currentUser',
+        type: 'userTypeRegular',
+        isMin: false,
         firstName: 'Mock',
         lastName: 'User',
         username: 'mockuser',
         phoneNumber: mockPhoneNumber,
         isPremium: false,
       },
+      currentUserFullInfo: {},
     });
   }, 1000);
 }
@@ -75,17 +78,20 @@ export async function mockSignUp(firstName: string, lastName: string, onUpdate: 
       '@type': 'updateAuthorizationState',
       authorizationState: 'authorizationStateReady',
     });
-    
+
     onUpdate({
       '@type': 'updateCurrentUser',
-      user: {
+      currentUser: {
         id: 'currentUser',
+        type: 'userTypeRegular',
+        isMin: false,
         firstName,
         lastName,
         username: 'newuser',
         phoneNumber: mockPhoneNumber,
         isPremium: false,
       },
+      currentUserFullInfo: {},
     });
   }, 1000);
 }

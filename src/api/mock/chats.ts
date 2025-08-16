@@ -4,25 +4,17 @@ import type { OnApiUpdate } from '../types/updates';
 const mockChats = [
   {
     id: '1',
-    type: 'chat',
+    type: 'chats',
     title: 'Mock Chat 1',
     unreadCount: 5,
-    lastMessage: {
-      text: 'Hello from mock API',
-      date: Date.now(),
-    },
     isPinned: false,
     isArchived: false,
   },
   {
     id: '2',
-    type: 'channel',
+    type: 'channels',
     title: 'Mock Channel',
     unreadCount: 0,
-    lastMessage: {
-      text: 'Channel message',
-      date: Date.now() - 3600000,
-    },
     isPinned: true,
     isArchived: false,
   },
@@ -31,11 +23,21 @@ const mockChats = [
 export async function mockFetchChats(limit: number = 20, offsetDate?: number, offsetId?: number) {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 500));
-  
+
   return {
     chats: mockChats,
     users: [],
     chatIds: mockChats.map(chat => chat.id),
+    messages: [],
+    userStatusesById: {},
+    notifyExceptionById: {},
+    lastMessageByChatId: {},
+    nextOffsetId: undefined,
+    nextOffsetPeerId: undefined,
+    nextOffsetDate: undefined,
+    draftsById: {},
+    orderedPinnedIds: [],
+    totalChatCount: mockChats.length,
   };
 }
 
