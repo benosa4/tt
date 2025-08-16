@@ -46,27 +46,14 @@ export async function mockSignIn(phoneNumber: string, onUpdate: OnApiUpdate): Pr
 
 export async function mockSubmitCode(code: string, onUpdate: OnApiUpdate): Promise<void> {
   mockSetCode(code);
-  
-  // Simulate code validation
-  if (code !== '12345') {
-    onUpdate({
-      '@type': 'updateAuthorizationError',
-      error: {
-        message: 'Invalid code',
-        isSlowMode: false,
-        hasErrorKey: true,
-      },
-    });
-    return;
-  }
 
-  // Simulate successful authentication
+  // Always simulate successful authentication for any code
   setTimeout(() => {
     onUpdate({
       '@type': 'updateAuthorizationState',
       authorizationState: 'authorizationStateReady',
     });
-    
+
     onUpdate({
       '@type': 'updateCurrentUser',
       user: {
