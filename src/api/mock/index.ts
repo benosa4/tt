@@ -47,6 +47,10 @@ class MockApi {
         '@type': 'updateAuthorizationState',
         authorizationState: mockAuth.getCurrentAuthState(),
       });
+
+      if (this.updateCallback) {
+        mockMessages.initMockMessages(this.updateCallback);
+      }
     }, 1000);
   }
 
@@ -76,7 +80,7 @@ class MockApi {
       case 'fetchMessages':
         return mockMessages.mockFetchMessages(args[0], args[1], args[2]) as T;
       case 'sendMessage':
-        return mockMessages.mockSendMessage(args[0], args[1]) as T;
+        return mockMessages.mockSendMessage(args[0], args[1], this.updateCallback) as T;
       case 'editMessage':
         return mockMessages.mockEditMessage(args[0], args[1]) as T;
       case 'deleteMessage':
@@ -85,6 +89,8 @@ class MockApi {
         return mockMessages.mockForwardMessages(args[0], args[1], args[2]) as T;
       case 'searchMessages':
         return mockMessages.mockSearchMessages(args[0], args[1]) as T;
+      case 'searchMessagesGlobal':
+        return mockMessages.mockSearchMessagesGlobal(args[0]) as T;
       
       case 'provideAuthPhoneNumber':
       case 'signIn':

@@ -174,7 +174,7 @@ addActionHandler('loadGreetingStickers', async (global): Promise<void> => {
       ...global.stickers,
       greeting: {
         hash: greeting.hash,
-        stickers: greeting.stickers.filter((sticker) => sticker.emoji === '👋'),
+        stickers: (greeting.stickers || []).filter((sticker) => sticker.emoji === '👋'),
       },
     },
   };
